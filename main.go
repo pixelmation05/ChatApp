@@ -20,24 +20,32 @@ type templateHandler struct {
 }
 
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    var parseErr error
+    var err error
+    
+    // Load template if not already loaded
     t.once.Do(func() {
         templatePath := filepath.Join("templates", t.filename)
-        t.templ, parseErr = template.ParseFiles(templatePath)
-        if parseErr != nil {
-            log.Printf("ERROR: Failed to parse template %s: %v", templatePath, parseErr)
+        
+        // Debug logging
+        log.Printf("Loading template from: %s", templatePath)
+        
+        // Check if file exists
+        if _, statErr := os.Stat(templatePath); os.IsNotExist(statErr) {
+            log.Printf("Template file does not exist: %s", templatePath)
+            return
+        }
+        
+        t.templ, err = template.ParseFiles(templatePath)
+        if err != nil {
+            log.Printf("Failed to parse template %s: %v", templatePath, err)
         } else {
-            log.Printf("Successfully loaded template: %s", templatePath)
+            log.Printf("Successfully loaded template: %s", t.filename)
         }
     })
     
-    if parseErr != nil {
-        http.Error(w, "Template parsing error: "+parseErr.Error(), http.StatusInternalServerError)
-        return
-    }
-    
-    if t.templ == nil {
-        http.Error(w, "Template not initialized: "+t.filename, http.StatusInternalServerError)
+    // If template failed to load, return error
+    if err != nil || t.templ == nil {
+        http.Error(w, "Template failed to load: "+t.filename, http.StatusInternalServerError)
         return
     }
     
@@ -49,9 +57,10 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
         data["UserData"] = objx.MustFromBase64(authCookie.Value)
     }
     
+    // Execute template
     if err := t.templ.Execute(w, data); err != nil {
         log.Printf("Error executing template %s: %v", t.filename, err)
-        http.Error(w, "Template execution error", http.StatusInternalServerError)
+        http.Error(w, "Template execution failed", http.StatusInternalServerError)
     }
 }
 
@@ -62,6 +71,7 @@ func generateSecurityKey() string {
 }
 
 func main() {
+	
 	if os.Getenv("RAILWAY_ENVIRONMENT") == "" {
 		// Only attempt to load .env in local development
 		// This silences the error in Railway
