@@ -8,7 +8,6 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
-    "github.com/joho/godotenv"
 	"github.com/stretchr/gomniauth"
 	"github.com/stretchr/gomniauth/providers/google"
 	"github.com/stretchr/objx"
@@ -46,10 +45,7 @@ func generateSecurityKey() string {
 
 func main() {
 	
-    if err := godotenv.Load(); err != nil {
-        log.Printf("❌ Error loading .env file: %v", err)
-	}
-    
+   
     // Check environment variables
     clientID := os.Getenv("GOOGLE_CLIENT_ID")
     clientSecret := os.Getenv("GOOGLE_CLIENT_SECRET")
@@ -74,9 +70,15 @@ func main() {
 	// get the room going
 	go r.run()
 	
+	// ✅ FIX: Use Railway's PORT environment variable
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default for local development
+	}
+	
 	// start the web server
-	log.Println("Starting server on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Printf("Starting server on :%s", port)
+	if err := http.ListenAndServe(":"+port, nil); err != nil {
 		log.Fatal("ListenAndServe:", err)
 	}
 }
