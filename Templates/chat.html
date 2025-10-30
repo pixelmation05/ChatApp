@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="/static/chat.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat Application</h1>
+            {{if .UserData}}
+            <div class="user-welcome">
+                Welcome, <span class="username">{{.UserData.name}}</span>!
+            </div>
+            {{else}}
+            <div class="user-welcome">
+                Welcome, <span class="username">Guest</span>!
+            </div>
+            {{end}}
+        </div>
+        
+        <div class="status connected" id="status">Connected</div>
+        
+        <div class="messages" id="messages">
+            <div class="message received">
+                Remember to curse a lot so you're heard!!
+            </div>
+        </div>
+
+        <form class="input-container" id="input">
+            <input type="text" class="message-input" id="message" placeholder="Type your message...">
+            <button type="submit" class="send-button">Send</button>
+        </form>
+    </div>
+
+    <script>
+        const messages = document.getElementById('messages');
+        const input = document.getElementById('input');
+        const messageInput = document.getElementById('message');
+        const status = document.getElementById('status');
+
+        // Get username from the DOM safely
+        let currentUsername = 'Guest';
+        try {
+            const usernameElement = document.querySelector('.username');
+            if (usernameElement && usernameElement.textContent) {
+                currentUsername = usernameElement.textContent.trim();
+            }
+        } catch (error) {
+            console.log('Using default username');
+        }
+
+        // Generate a unique ID for this user session
+        const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+
+        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const wsUrl = wsProtocol + '//' + window.location.host + '/room';
+        
+        const conn = new WebSocket(wsUrl);
+
+        conn.onopen = function(e) {
+            status.textContent = 'Connected';
+            status.className = 'status connected';
+        };
+
+        conn.onclose = function(e) {
+            status.textContent = 'Disconnected';
+            status.className = 'status disconnected';
+        };
+
+        conn.onerror = function(e) {
+            status.textContent = 'Connection Error';
+            status.className = 'status disconnected';
+        };
+
+        conn.onmessage = function(e) {
+            try {
+                // Parse the JSON message
+                const msg = JSON.parse(e.data);
+                
+                // Create message container
+                const messageDiv = document.createElement('div');
+                
+                // Check if this message is from the current user
+                if (msg.userId === userId) {
+                    messageDiv.className = 'message sent';
+                    messageDiv.innerHTML = `
+                        <div class="message-content">${msg.message}</div>
+                    `;
+                } else {
+                    messageDiv.className = 'message received';
+                    messageDiv.innerHTML = `
+                        <div class="message-sender">${msg.name || 'User'}</div>
+                        <div class="message-content">${msg.message}</div>
+                    `;
+                }
+                
+                messages.appendChild(messageDiv);
+                messages.scrollTop = messages.scrollHeight;
+                
+            } catch (error) {
+                // Fallback for plain text messages
+                const message = document.createElement('div');
+                message.className = 'message received';
+                message.textContent = e.data;
+                messages.appendChild(message);
+                messages.scrollTop = messages.scrollHeight;
+            }
+        };
+
+        input.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageText = messageInput.value.trim();
+            if (messageText) {
+                // Create a structured message with user ID and name
+                const messageData = {
+                    type: 'message',
+                    message: messageText,
+                    userId: userId,
+                    name: currentUsername,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Send as JSON
+                conn.send(JSON.stringify(messageData));
+                
+                // Clear input
+                messageInput.value = '';
+                
+                // Keep focus on input
+                messageInput.focus();
+            }
+        });
+
+        // Keep focus on input
+        messageInput.focus();
+    </script>
+</body>
+</html>

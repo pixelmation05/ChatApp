@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Conversa</title>
+    <link rel="stylesheet" href="/static/chat.css">
+    <style>
+        .login-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #9815a9, #d01ad3);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .provider-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+        
+        .provider-list li {
+            margin: 15px 0;
+        }
+        
+        .provider-btn {
+            display: block;
+            padding: 15px 20px;
+            background: #4f46e5;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        .provider-btn:hover {
+            background: #4338ca;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .provider-btn.facebook {
+            background: #3b5998;
+        }
+        
+        .provider-btn.facebook:hover {
+            background: #344e86;
+        }
+        
+        .provider-btn.github {
+            background: #333;
+        }
+        
+        .provider-btn.github:hover {
+            background: #222;
+        }
+        
+        .provider-btn.google {
+            background: #db4437;
+        }
+        
+        .provider-btn.google:hover {
+            background: #c33d32;
+        }
+        
+        .login-message {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .panel-title {
+            color: #374151;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-header">
+                    <h1>Welcome to Conversa</h1>
+                </div>
+                
+                <div class="login-body">
+                    <div class="login-message">
+                        <h3 class="panel-title">Strike a Conversation</h3>
+                        <p>Sign in to join the gang</p>
+                    </div>
+                    
+                    <ul class="provider-list">
+                        <li>
+                            <a href="/auth/login/facebook" class="provider-btn facebook">
+                                Continue with Facebook
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/auth/login/github" class="provider-btn github">
+                                Continue with GitHub
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/auth/login/google" class="provider-btn google">
+                                Continue with Google
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <div style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 15px;">
+                            Secure authentication • Your privacy matters
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
