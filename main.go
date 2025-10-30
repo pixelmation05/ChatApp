@@ -44,6 +44,10 @@ func generateSecurityKey() string {
 }
 
 func main() {
+	if os.Getenv("RAILWAY_ENVIRONMENT") == "" {
+		// Only attempt to load .env in local development
+		// This silences the error in Railway
+	}
 	
    
     // Check environment variables
