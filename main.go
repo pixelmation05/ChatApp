@@ -20,21 +20,39 @@ type templateHandler struct {
 }
 
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	t.once.Do(func() {
-		templatePath := filepath.Join("templates", t.filename)
-		t.templ = template.Must(template.ParseFiles(templatePath))
-	})
-	
-	data := map[string]interface{}{
-		"Host": r.Host,
-	}
-	
-	if authCookie, err := r.Cookie("auth"); err == nil {
-		data["UserData"] = objx.MustFromBase64(authCookie.Value)
-	}
-	
-	// ✅ FIX: Pass data instead of r to the template
-	t.templ.Execute(w, data)
+    var parseErr error
+    t.once.Do(func() {
+        templatePath := filepath.Join("templates", t.filename)
+        t.templ, parseErr = template.ParseFiles(templatePath)
+        if parseErr != nil {
+            log.Printf("ERROR: Failed to parse template %s: %v", templatePath, parseErr)
+        } else {
+            log.Printf("Successfully loaded template: %s", templatePath)
+        }
+    })
+    
+    if parseErr != nil {
+        http.Error(w, "Template parsing error: "+parseErr.Error(), http.StatusInternalServerError)
+        return
+    }
+    
+    if t.templ == nil {
+        http.Error(w, "Template not initialized: "+t.filename, http.StatusInternalServerError)
+        return
+    }
+    
+    data := map[string]interface{}{
+        "Host": r.Host,
+    }
+    
+    if authCookie, err := r.Cookie("auth"); err == nil {
+        data["UserData"] = objx.MustFromBase64(authCookie.Value)
+    }
+    
+    if err := t.templ.Execute(w, data); err != nil {
+        log.Printf("Error executing template %s: %v", t.filename, err)
+        http.Error(w, "Template execution error", http.StatusInternalServerError)
+    }
 }
 
 func generateSecurityKey() string {
