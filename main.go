@@ -66,6 +66,9 @@ func main() {
 
 	r := newRoom()
 	
+	// ✅ ADDED: Root route handler - redirects to login page
+	http.Handle("/", &templateHandler{filename: "login.html"})
+	
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/login", &templateHandler{filename: "login.html"})
 	http.Handle("/room", r)
