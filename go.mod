@@ -11,6 +11,7 @@ require (
 
 require (
 	github.com/clbanning/x2j v0.0.0-20191024224557-825249438eec // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/stretchr/codecs v0.0.0-20170403063245-04a5b1e1910d // indirect
 	github.com/stretchr/signature v0.0.0-20160104132143-168b2a1e1b56 // indirect
 	github.com/stretchr/stew v0.0.0-20130812190256-80ef0842b48b // indirect
