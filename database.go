@@ -10,7 +10,7 @@ import (
 
 var db *sql.DB
 
-type DBMessage struct { // CHANGED: Renamed from 'Message' to 'DBMessage'
+type DBMessage struct { 
 	Username  string
 	Message   string
 	CreatedAt time.Time
@@ -67,9 +67,9 @@ func saveMessage(username, message, roomID string) error {
 	return err
 }
 
-func getRecentMessages(roomID string, limit int) ([]DBMessage, error) { // CHANGED: Return type
+func getRecentMessages(roomID string, limit int) ([]DBMessage, error) { 
 	if db == nil {
-		return []DBMessage{}, nil // CHANGED: Return type
+		return []DBMessage{}, nil 
 	}
 	rows, err := db.Query(
 		"SELECT username, message, created_at, room_id FROM messages WHERE room_id = $1 ORDER BY created_at DESC LIMIT $2",
@@ -80,9 +80,9 @@ func getRecentMessages(roomID string, limit int) ([]DBMessage, error) { // CHANG
 	}
 	defer rows.Close()
 
-	var msgs []DBMessage // CHANGED: Type
+	var msgs []DBMessage 
 	for rows.Next() {
-		var m DBMessage // CHANGED: Type
+		var m DBMessage 
 		err := rows.Scan(&m.Username, &m.Message, &m.CreatedAt, &m.RoomID)
 		if err != nil {
 			return nil, err
@@ -90,7 +90,6 @@ func getRecentMessages(roomID string, limit int) ([]DBMessage, error) { // CHANG
 		msgs = append(msgs, m)
 	}
 
-	// Reverse order
 	for i, j := 0, len(msgs)-1; i < j; i, j = i+1, j-1 {
 		msgs[i], msgs[j] = msgs[j], msgs[i]
 	}
