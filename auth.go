@@ -30,8 +30,7 @@ func (h *authHandler)  ServeHTTP(w http.ResponseWriter, r *http.Request){
 func MustAuth(handler http.Handler) http.Handler{
   return &authHandler{next: handler}
 }
-// loginHandler handles the third-party login process.
-// format: /auth/{action}/{provider}
+
 func loginHandler(w http.ResponseWriter, r *http.Request) {
  segs := strings.Split(r.URL.Path, "/")
  action := segs[2]
