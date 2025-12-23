@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/objx"
 )
 
-// Message type
+
 type message struct {
 	Name    string    `json:"name"`
 	Message string    `json:"message"`
@@ -82,7 +82,7 @@ func (r *room) run() {
 		case cl := <-r.join: // CHANGED: 'client' to 'cl'
 			r.clients[cl] = true
 
-			// Send old messages
+		
 			go func(c *client) {
 				msgs, err := getRecentMessages("default", 50)
 				if err == nil {
@@ -105,15 +105,15 @@ func (r *room) run() {
 			close(cl.send)
 
 		case msg := <-r.forward:
-			// Save to DB
+		
 			go func() {
 				if msg.Name != "" && msg.Message != "" {
 					saveMessage(msg.Name, msg.Message, "default")
 				}
 			}()
 
-			// Send to all
-			for cl := range r.clients { // CHANGED: 'client' to 'cl'
+			
+			for cl := range r.clients {
 				select {
 				case cl.send <- msg:
 				default:
