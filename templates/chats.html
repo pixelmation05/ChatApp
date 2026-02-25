@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Conversa</title>
+    <link rel="stylesheet" href="/static/css/chats.css">
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <div class="header-left">
+            <img src="/static/img/logo-black.png" class="app-logo logo-light" alt="Conversa">
+            <img src="/static/img/logo-white.png" class="app-logo logo-dark" alt="Conversa">
+        </div>
+    </header>
+    <div class="chat-container">
+        <div class="phone-wrapper" id="wrapper">
+        <div class="status connected" id="status">Connected</div>
+            <div class="chat-header">
+            {{if .UserData}}
+            <div class="user-welcome">
+                Welcome, <span class="username">{{.UserData.name}}</span>!
+            </div>
+            {{else}}
+            <div class="user-welcome">
+                Welcome, <span class="username">Guest</span>!
+            </div>
+            {{end}}
+        </div>
+        <div class="messages" id="messages">
+            <div class="message received">
+                Remember to curse a lot so you're heard!!
+            </div>
+        </div>
+
+        <form class="input-container" id="input">
+            <input type="text" class="message-input" id="message" placeholder="Type your message...">
+            <button type="submit" class="send-button">Send</button>
+        </form>
+        </div>
+    </div>
+    <script src="/static/js/chat.js"></script>
+</body>
+</html>

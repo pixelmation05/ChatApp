@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: inherit;
+}
+.login-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--hero-col);
+  /* justify-content: center; */
+  margin-top: 16rem;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--hero-col);
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: var(--hero-col);
+  max-width: 520px;
+}
+
+.hero-actions {
+  margin-top: 40px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.hero-footnote {
+  font-size: 0.95rem;
+  color: var(--muted-text);
+  margin-bottom: 20px;
+}
+
+.provider-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.provider-list li {
+    margin: 15px 0;
+}
+.provider-btn {
+  display: block;
+  padding: 15px 20px;
+  color: var(--provider-btn-text);
+  text-decoration: none;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  width: 88%;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.provider-btn:hover {
+  background: var(--provider-btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.3);
+  color: var(--provider-btn-text);
+  text-decoration: none;
+}
+
+.provider-btn.google {
+  background: linear-gradient(
+    90deg,
+    var(--provider-btn-ggl1),
+    var(--provider-btn-ggl2),
+    var(--provider-btn-ggl3)
+  );
+  background-size: 200% 100%;
+  background-position: right;
+  transition: background-position 1.4s ease,
+  transform 0.2s ease,
+  box-shadow 0.2s ease;
+}
+
+.provider-btn.google:hover {
+  background-position: left;
+}
+
+.login-message { 
+    text-align: center;
+    color: var(--login-message-text);
+    margin-bottom: 25px;
+    line-height: 1.5;
+
+ }
+.panel-title { 
+    color: var(--panel-title-text);
+    font-weight:600;
+}
+
+
+
