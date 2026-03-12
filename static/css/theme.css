@@ -1,0 +1,95 @@
+:root {
+  --bg: url("/static/img/bg-white.jpg");
+  --text: #111;
+  --card: #ffffff;
+  --grid-color: rgba(0,0,0,0.05);
+  --usern: #ffeb3b;
+  --status-text: #6b7280;
+  --status-connected: #10b981;
+  --status-disconnected: #ef4444;
+  --chat-bg: #f8fafc;
+  --msg-received-bg: #ffffff;
+  --msg-received-border: #e2e8f0;
+  --msg-sent-bg: #4f46e5;
+  --msg-sent-text: #ffffff;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --input-focus-border: #4f46e5;
+  --input-focus-shadow: rgba(79, 70, 229, 0.1);
+  --send-bg: #4f46e5;
+  --send-text: #ffffff;
+  --send-hover: #4338ca;
+  --scroll-track: #f1f5f9;
+  --scroll-thumb: #ffffff;
+  --scroll-thumb-hover: #94a3b8;
+  --sender-color: #ee41e5;
+  --login-card-bg: #ffffff;
+  --login-header-bg: linear-gradient(135deg, #9815a9, #d01ad3);
+  --login-header-text: #ffffff;
+  --provider-btn-text: #313131;
+  --provider-btn-ggl1: #ffbaa8;
+  --provider-btn-ggl2:#78ebff;
+  --provider-btn-ggl3:#f27dff;
+  --provider-btn-hover: #4338ca;
+  --login-message-text: #64748b;
+  --panel-title-text: #374151;
+  --theme-toggle: #111827;
+  --header-btn-capsule: linear-gradient(204deg, #000bd88b, #bf0000a1);;
+  --header-line-start: #8b5cf6; /* purple */
+  --header-line-end:   #22d3ee; /* cyan */
+  --header-btn-color: #ffffff;
+  --header-btn-hover: #ff00c8;   /* neon pink*/
+  --hero-col: #000000;
+  --muted-text: #000000;
+  --chat-bg: rgba(200, 200, 255, 0.65);
+  --panel-bg: rgba(255, 255, 255, 0.85);
+  --panel-border: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  --bg: url("/static/img/bg-dark.jpg");
+  --text: #eaeaea;
+  --card: #1f2126;
+  --grid-color: rgba(114, 114, 114, 0.3);
+  --usern: #c21dec;
+  --status-text: #9ca3af;
+  --status-connected: #34d399;
+  --status-disconnected: #f87171;
+  --chat-bg: #15171a;
+  --msg-received-bg: #1f2126;
+  --msg-received-border: #33363f;
+  --msg-sent-bg: #8b5cf6;
+  --msg-sent-text: #ffffff;
+  --input-bg: #1f2126;
+  --input-border: #33363f;
+  --input-focus-border: #8b5cf6;
+  --input-focus-shadow: rgba(139, 92, 246, 0.2);
+  --send-bg: #8b5cf6;
+  --send-text: #ffffff;
+  --send-hover: #7c3aed;
+  --scroll-track: #1f2126;
+  --scroll-thumb: #555b6e;
+  --scroll-thumb-hover: #888fa3;
+  --sender-color: #f687b3;
+  --login-card-bg: #1f2126;
+  --login-header-bg: linear-gradient(135deg, #6b21a8, #9333ea);
+  --login-header-text: #f3f4f6;
+  --provider-btn-text: #ffffff;
+  --provider-btn-ggl1: #ff9100;
+  --provider-btn-ggl2:#00f7ff;
+  --provider-btn-ggl3:#c300ff;
+  --provider-btn-hover: #7c3aed;
+  --login-message-text: #94a3b8;
+  --panel-title-text: #f3f4f6;  
+  --theme-toggle: #f3f4f6;
+  --header-btn-capsule: linear-gradient(135deg, #219da8, #9333ea);;
+  --header-line-start: #a78bfa; /* brighter purple */
+  --header-line-end:   #67e8f9; /* brighter cyan */
+  --header-btn-color: #ffffff;
+  --header-btn-hover: #67e8f9;   /* brighter cyan */
+  --hero-col: #ffffff;
+  --muted-text: #d6d6d6;
+  --chat-bg: rgba(20, 20, 28, 0.65);
+  --panel-bg: rgba(18, 18, 22, 0.88);
+  --panel-border: rgba(255, 255, 255, 0.08);
+}
